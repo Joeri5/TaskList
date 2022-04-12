@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TasksController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,30 +18,18 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-Route::get('/task', function () {
-    return view('tasks');
-})->middleware(['auth'])->name('task');
-Route::post('/task', function (Request $request) {
-    //
-});
-Route::delete('/task/{id}', function ($id) {
-    //
-});
-Route::post('/task', function (Request $request) {
-    $validator = Validator::make($request->all(), [
-        'name' => 'required|max:255',
-    ]);
+//Route::get('/dashboard', function () {
+//    return view('dashboard');
+//})->middleware(['auth'])->name('dashboard');
 
-    if ($validator->fails()) {
-        return redirect('/task')
-            ->withInput()
-            ->withErrors($validator);
-    }
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::get('/dashboard', [TasksController::class, 'index'])->name('dashboard');
 
-    // Create The Task...
+    Route::get('/task', [TasksController::class, 'add']);
+    Route::post('/task', [TasksController::class, 'create']);
+
+    Route::get('/task/{task}', [TasksController::class, 'edit']);
+    Route::post('/task/{task}', [TasksController::class, 'update']);
 });
 
 require __DIR__ . '/auth.php';

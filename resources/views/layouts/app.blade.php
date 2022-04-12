@@ -8,7 +8,17 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&display=swap"
+          rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
@@ -23,13 +33,13 @@
 <!-- Page Heading -->
     <header class="bg-white shadow">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-            {{--            {{ $header }}--}}
+            {{ $header }}
         </div>
     </header>
 
     <!-- Page Content -->
     <main>
-        {{--        {{ $slot }}--}}
+        {{ $slot }}
     </main>
     @yield('content')
 </div>
