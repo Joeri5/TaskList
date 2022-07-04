@@ -23,8 +23,19 @@ class TasksController extends Controller
         $this->validate($request, [
             'description' => 'required',
         ]);
+
+        if($request->hasFile('image')){
+            $destination_path = 'public/images/';
+            $image = $request->file('image');
+            $image_name = $image->getClientOriginalName();
+            $path = $request->file('image')->storeAs($destination_path,$image_name);
+
+            $input['image'] = $image_name;
+        }
+
         $task = new Task();
         $task->description = $request->description;
+        $task->image = $request->image;
         $task->user_id = auth()->user()->id;
         $task->save();
         return redirect('/dashboard');
@@ -48,6 +59,7 @@ class TasksController extends Controller
             $this->validate($request, [
                 'description' => 'required'
             ]);
+            $task->image = $request->image;
             $task->description = $request->description;
             $task->save();
             return redirect('/dashboard');

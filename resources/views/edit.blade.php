@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{--            {{ __('Dashboard') }}--}}
+            {{ __('Edit Task') }}
         </h2>
     </x-slot>
     <div class="py-12">
@@ -13,12 +13,13 @@
                     <div class="form-group">
                         <textarea name="description"
                                   class="bg-gray-100 rounded border border-gray-400 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white">{{$task->description }}</textarea>
+                        <input type="file" name="image" placeholder="{{ $task->image }}" />
                         @if ($errors->has('description'))
                             <span class="text-danger">{{ $errors->first('description') }}</span>
                         @endif
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group mt-4">
                         <button type="submit" name="update"
                                 class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Update task
                         </button>
